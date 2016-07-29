@@ -10,6 +10,8 @@ import android.widget.TextView;
 import com.lee.nytimessearch.Article;
 import com.lee.nytimessearch.R;
 
+import org.parceler.Parcels;
+
 public class ArticleActivity extends AppCompatActivity {
 
     @Override
@@ -23,7 +25,7 @@ public class ArticleActivity extends AppCompatActivity {
         // Get access to the custom title view
         TextView mTitle = (TextView) toolbar.findViewById(R.id.toolbar_title);
 
-        Article article = (Article) getIntent().getParcelableExtra("article");
+        Article article = (Article) Parcels.unwrap(getIntent().getParcelableExtra("article"));
         mTitle.setText(article.getHeadline());
         WebView webView = (WebView) findViewById(R.id.wvArticle);
 
