@@ -12,10 +12,10 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.GridView;
-import android.widget.Toast;
 
 import com.lee.nytimessearch.Article;
 import com.lee.nytimessearch.ArticleArrayAdapter;
+import com.lee.nytimessearch.EndlessScrollListener;
 import com.lee.nytimessearch.R;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
@@ -68,6 +68,19 @@ public class SearchActivity extends AppCompatActivity {
                 startActivity(i);
             }
         });
+
+        gvResults.setOnScrollListener(new EndlessScrollListener() {
+            @Override
+            public boolean onLoadMore(int page, int totalItemsCount) {
+                customLoadMoreDataFromApi(page++);
+                return true;
+            }
+        });
+
+    }
+
+    public void customLoadMoreDataFromApi(int offset) {
+        onArticleSearch(offset);
     }
 
     @Override
@@ -92,7 +105,12 @@ public class SearchActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    public void onArticleSearch(View view) {
+    public void onNewArticleSearch(View view) {
+        adapter.clear();
+        onArticleSearch(0);
+    }
+
+    public void onArticleSearch(int page) {
         String query = etQuery.getText().toString();
 
         AsyncHttpClient client = new AsyncHttpClient();
@@ -100,7 +118,7 @@ public class SearchActivity extends AppCompatActivity {
 
         RequestParams params = new RequestParams();
         params.put("api-key", "49e4ef58db7f4b28a614996ed6e0e513");
-        params.put("page", 0);
+        params.put("page", page);
         params.put("q", query);
         client.get(url, params, new JsonHttpResponseHandler(){
             @Override
@@ -119,7 +137,5 @@ public class SearchActivity extends AppCompatActivity {
 
             }
         });
-
-        Toast.makeText(this, query, Toast.LENGTH_LONG).show();
     }
 }

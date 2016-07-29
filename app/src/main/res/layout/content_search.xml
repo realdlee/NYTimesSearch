@@ -19,7 +19,7 @@
         android:id="@+id/btnSearch"
         android:layout_alignParentTop="true"
         android:layout_alignParentRight="true"
-        android:onClick="onArticleSearch"
+        android:onClick="onNewArticleSearch"
         android:layout_alignParentEnd="true" />
 
     <EditText
