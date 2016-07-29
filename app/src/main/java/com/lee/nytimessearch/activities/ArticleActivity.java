@@ -23,7 +23,7 @@ public class ArticleActivity extends AppCompatActivity {
         // Get access to the custom title view
         TextView mTitle = (TextView) toolbar.findViewById(R.id.toolbar_title);
 
-        Article article = (Article) getIntent().getSerializableExtra("article");
+        Article article = (Article) getIntent().getParcelableExtra("article");
         mTitle.setText(article.getHeadline());
         WebView webView = (WebView) findViewById(R.id.wvArticle);
 
