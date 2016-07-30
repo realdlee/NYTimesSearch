@@ -1,6 +1,9 @@
 package com.lee.nytimessearch.activities;
 
+import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -113,31 +116,43 @@ public class SearchActivity extends AppCompatActivity {
     }
 
     public void onArticleSearch(int page) {
-        String query = etQuery.getText().toString();
+        if(isNetworkAvailable()) {
 
-        AsyncHttpClient client = new AsyncHttpClient();
-        String url = "https://api.nytimes.com/svc/search/v2/articlesearch.json";
+            String query = etQuery.getText().toString();
 
-        RequestParams params = new RequestParams();
-        params.put("api-key", "49e4ef58db7f4b28a614996ed6e0e513");
-        params.put("page", page);
-        params.put("q", query);
-        client.get(url, params, new JsonHttpResponseHandler(){
-            @Override
-            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-                JSONArray articleJsonResults = null;
+            AsyncHttpClient client = new AsyncHttpClient();
+            String url = "https://api.nytimes.com/svc/search/v2/articlesearch.json";
 
-                try {
-                    articleJsonResults = response.getJSONObject("response").getJSONArray("docs");
-//                    articles.addAll(Article.fromJSONArray(articleJsonResults));
-//                    adapter.notifyDataSetChanged();
-                    adapter.addAll(Article.fromJSONArray(articleJsonResults));
-                    Log.d("Debug", articles.toString());
-                } catch (JSONException e) {
-                    e.printStackTrace();
+            RequestParams params = new RequestParams();
+            params.put("api-key", "49e4ef58db7f4b28a614996ed6e0e513");
+            params.put("page", page);
+            params.put("q", query);
+            client.get(url, params, new JsonHttpResponseHandler() {
+                @Override
+                public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                    JSONArray articleJsonResults = null;
+
+                    try {
+                        articleJsonResults = response.getJSONObject("response").getJSONArray("docs");
+                        //                    articles.addAll(Article.fromJSONArray(articleJsonResults));
+                        //                    adapter.notifyDataSetChanged();
+                        adapter.addAll(Article.fromJSONArray(articleJsonResults));
+                        Log.d("Debug", articles.toString());
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+
                 }
+            });
+        } else {
+            Log.e("error", "no internet!");
+        }
+    }
 
-            }
-        });
+    private Boolean isNetworkAvailable() {
+        ConnectivityManager connectivityManager
+                = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        return activeNetworkInfo != null && activeNetworkInfo.isConnectedOrConnecting();
     }
 }
