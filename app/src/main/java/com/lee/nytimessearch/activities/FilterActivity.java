@@ -76,7 +76,6 @@ public class FilterActivity extends AppCompatActivity implements AdapterView.OnI
         TextView tvBeginDate = (TextView) findViewById(R.id.tvBeginDate);
         if(filter.getBeginDate() != null) {
             SimpleDateFormat format = new SimpleDateFormat("MMMM d, yyyy");
-            Log.e("date", format.format(filter.beginDate.getTime()));
             tvBeginDate.setText(format.format(filter.beginDate.getTime()));
         } else {
             tvBeginDate.setText("Click to select");

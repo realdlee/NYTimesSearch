@@ -119,7 +119,6 @@ public class SearchActivity extends AppCompatActivity {
 
     public void openFilters() {
         Intent i = new Intent(getApplicationContext(), FilterActivity.class);
-
         i.putExtra("filter", Parcels.wrap(filter));
         startActivityForResult(i, REQUEST_CODE);
     }
@@ -130,11 +129,11 @@ public class SearchActivity extends AppCompatActivity {
 
     public void onNewArticleSearch() {
         adapter.clear();
-        onArticleSearch(0);
+        onArticleSearch(1);
     }
 
     public void onArticleSearch(int page) {
-        if(isNetworkAvailable()) {
+        if(isNetworkAvailable() && page < 4) {
             String query = etQuery.getText().toString();
 
             AsyncHttpClient client = new AsyncHttpClient();
@@ -166,7 +165,6 @@ public class SearchActivity extends AppCompatActivity {
                         //                    articles.addAll(Article.fromJSONArray(articleJsonResults));
                         //                    adapter.notifyDataSetChanged();
                         adapter.addAll(Article.fromJSONArray(articleJsonResults));
-                        Log.d("Debug", articles.toString());
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
