@@ -5,10 +5,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.widget.Spinner;
 
@@ -31,6 +31,7 @@ public class FilterActivity extends AppCompatActivity implements AdapterView.OnI
         setSupportActionBar(toolbar);
         filter = (Filter) Parcels.unwrap(getIntent().getParcelableExtra("filter"));
         setupSpinner();
+        setupCheckBoxes();
     }
 
     public void setupSpinner() {
@@ -49,6 +50,43 @@ public class FilterActivity extends AppCompatActivity implements AdapterView.OnI
 
     public void onNothingSelected(AdapterView<?> parent) {
         // required
+    }
+
+    public void setupCheckBoxes() {
+        CheckBox cbHealth = (CheckBox) findViewById(R.id.cbHealth);
+        CheckBox cbSports = (CheckBox) findViewById(R.id.cbSports);
+        CheckBox cbBusiness = (CheckBox) findViewById(R.id.cbBusiness);
+        cbHealth.setChecked(filter.newsDesk.contains("health"));
+        cbSports.setChecked(filter.newsDesk.contains("sports"));
+        cbBusiness.setChecked(filter.newsDesk.contains("business"));
+    }
+
+    public void checkBoxClicked(View view) {
+        boolean checked = ((CheckBox) view).isChecked();
+
+        switch(view.getId()) {
+            case R.id.cbHealth:
+                if (checked) {
+                    filter.newsDesk.add("health");
+                } else {
+                    filter.newsDesk.remove("health");
+                }
+                break;
+            case R.id.cbSports:
+                if (checked) {
+                    filter.newsDesk.add("sports");
+                } else {
+                    filter.newsDesk.remove("sports");
+                }
+                break;
+            case R.id.cbBusiness:
+                if (checked) {
+                    filter.newsDesk.add("business");
+                } else {
+                    filter.newsDesk.remove("business");
+                }
+                break;
+        }
     }
 
     public void onSave(View view) {

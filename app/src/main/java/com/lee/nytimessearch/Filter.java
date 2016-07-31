@@ -2,6 +2,7 @@ package com.lee.nytimessearch;
 
 import org.parceler.Parcel;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 
 /**
@@ -13,9 +14,9 @@ public class Filter{
         return sort;
     }
 
-//    public String[] getNewsDesk() {
-//        return newsDesk;
-//    }
+    public ArrayList<String> getNewsDesk() {
+        return newsDesk;
+    }
 
     public Calendar getBeginDate() {
         return beginDate;
@@ -23,11 +24,11 @@ public class Filter{
 
     public String sort;
     public Calendar beginDate;
-//    String[] newsDesk;
+    public ArrayList<String> newsDesk;
 
     public Filter() {
         this.sort = "newest";
         this.beginDate = null;
-//        this.newsDesk = new String[0];
+        this.newsDesk = new ArrayList<String>();
     }
 }

@@ -145,6 +145,13 @@ public class SearchActivity extends AppCompatActivity {
             params.put("page", page);
             params.put("q", query);
             params.put("sort", filter.sort);
+            if(!filter.newsDesk.isEmpty()) {
+                String newDeskParams = "";
+                for(int i=0;i < filter.newsDesk.size(); i++) {
+                    newDeskParams += "\""+ filter.newsDesk.get(i).toString() +"\"" + ",";
+                }
+                params.put("fq", "news_desk:(" + newDeskParams + ")");
+            }
             if(filter.beginDate != null) {
                 params.put("begin_date", format.format(filter.beginDate.getTime()));
             }
@@ -175,6 +182,7 @@ public class SearchActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (resultCode == RESULT_OK && requestCode == REQUEST_CODE) {
             filter = (Filter) Parcels.unwrap(data.getParcelableExtra("filter"));
+            Log.e("test", filter.newsDesk.toString());
             onNewArticleSearch();
         }
     }

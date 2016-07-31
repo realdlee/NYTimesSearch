@@ -37,10 +37,11 @@
         android:layout_height="wrap_content"
         android:text="@string/btn_filter_text"
         android:id="@+id/btnSaveFilter"
-        android:layout_below="@+id/tvSpinner"
-        android:layout_centerHorizontal="true"
         android:onClick="onSave"
-        android:layout_marginTop="112dp" />
+        android:layout_below="@+id/cbBusiness"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="57dp" />
 
     <Button
         style="?android:attr/buttonStyleSmall"
@@ -52,5 +53,48 @@
         android:layout_above="@+id/tvSpinner"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="46dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="@string/news_desk_checkboxes_label"
+        android:id="@+id/textView"
+        android:layout_below="@+id/tvSpinner"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <CheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/newsdesk_sports_checkbox"
+        android:id="@+id/cbSports"
+        android:layout_below="@+id/textView"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:onClick="checkBoxClicked"
+        android:checked="false" />
+
+    <CheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/newsdesk_health_checkbox"
+        android:id="@+id/cbHealth"
+        android:layout_below="@+id/cbSports"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:onClick="checkBoxClicked"
+        android:checked="false" />
+
+    <CheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/newsdesk_business_checkbox"
+        android:id="@+id/cbBusiness"
+        android:layout_below="@+id/cbHealth"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:onClick="checkBoxClicked"
+        android:checked="false" />
 
 </RelativeLayout>
