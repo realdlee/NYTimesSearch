@@ -30,6 +30,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.parceler.Parcels;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 import cz.msebera.android.httpclient.Header;
@@ -42,6 +43,7 @@ public class SearchActivity extends AppCompatActivity {
     ArticleArrayAdapter adapter;
     Filter filter;
     private final int REQUEST_CODE = 20;
+    SimpleDateFormat format = new SimpleDateFormat("yyyyMMdd");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -133,7 +135,6 @@ public class SearchActivity extends AppCompatActivity {
 
     public void onArticleSearch(int page) {
         if(isNetworkAvailable()) {
-
             String query = etQuery.getText().toString();
 
             AsyncHttpClient client = new AsyncHttpClient();
@@ -144,6 +145,9 @@ public class SearchActivity extends AppCompatActivity {
             params.put("page", page);
             params.put("q", query);
             params.put("sort", filter.sort);
+            if(filter.beginDate != null) {
+                params.put("begin_date", format.format(filter.beginDate.getTime()));
+            }
             Log.e("params", params.toString());
             client.get(url, params, new JsonHttpResponseHandler() {
                 @Override

@@ -11,4 +11,5 @@
         <item>oldest</item>
         <item>newest</item>
     </string-array>
+    <string name="initiate_begin_date_picker">Select Start Date</string>
 </resources>

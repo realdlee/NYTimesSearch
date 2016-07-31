@@ -1,5 +1,6 @@
 package com.lee.nytimessearch.activities;
 
+import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -7,6 +8,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.DatePicker;
 import android.widget.Spinner;
 
 import com.lee.nytimessearch.Filter;
@@ -14,7 +16,9 @@ import com.lee.nytimessearch.R;
 
 import org.parceler.Parcels;
 
-public class FilterActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
+import java.util.Calendar;
+
+public class FilterActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener, DatePickerDialog.OnDateSetListener {
     Filter filter;
     Spinner sortSpinner;
 
@@ -52,5 +56,20 @@ public class FilterActivity extends AppCompatActivity implements AdapterView.OnI
         i.putExtra("filter", Parcels.wrap(filter));
         setResult(RESULT_OK, i);
         finish();
+    }
+
+    public void showDatePickerDialog(View v) {
+        DatePickerFragment newFragment = new DatePickerFragment();
+        newFragment.show(getSupportFragmentManager(), "datePicker");
+    }
+
+    @Override
+    public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+        // store the values selected into a Calendar instance
+        final Calendar c = Calendar.getInstance();
+        c.set(Calendar.YEAR, year);
+        c.set(Calendar.MONTH, monthOfYear);
+        c.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+        filter.beginDate = c;
     }
 }

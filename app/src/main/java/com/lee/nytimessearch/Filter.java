@@ -2,6 +2,8 @@ package com.lee.nytimessearch;
 
 import org.parceler.Parcel;
 
+import java.util.Calendar;
+
 /**
  * Created by lee on 7/30/16.
  */
@@ -15,17 +17,17 @@ public class Filter{
 //        return newsDesk;
 //    }
 
-//    public Date getBeginDate() {
-//        return beginDate;
-//    }
+    public Calendar getBeginDate() {
+        return beginDate;
+    }
 
     public String sort;
-//    Date beginDate;
+    public Calendar beginDate;
 //    String[] newsDesk;
 
     public Filter() {
         this.sort = "newest";
-//        this.beginDate = null;
+        this.beginDate = null;
 //        this.newsDesk = new String[0];
     }
 }
