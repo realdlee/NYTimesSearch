@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -59,7 +60,15 @@ public class FilterActivity extends AppCompatActivity implements AdapterView.OnI
     }
 
     public void showDatePickerDialog(View v) {
-        DatePickerFragment newFragment = new DatePickerFragment();
+        int year = 0;
+        int month = 0;
+        int day = 0;
+        if(filter.getBeginDate() != null) {
+            year = filter.getBeginDate().get(Calendar.YEAR);
+            month = filter.getBeginDate().get(Calendar.MONTH);
+            day = filter.getBeginDate().get(Calendar.DAY_OF_MONTH);
+        }
+        DatePickerFragment newFragment = DatePickerFragment.newInstance(year, month, day);
         newFragment.show(getSupportFragmentManager(), "datePicker");
     }
 
