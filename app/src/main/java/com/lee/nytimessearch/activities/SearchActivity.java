@@ -19,6 +19,7 @@ import android.widget.GridView;
 import com.lee.nytimessearch.Article;
 import com.lee.nytimessearch.ArticleArrayAdapter;
 import com.lee.nytimessearch.EndlessScrollListener;
+import com.lee.nytimessearch.Filter;
 import com.lee.nytimessearch.R;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
@@ -39,7 +40,8 @@ public class SearchActivity extends AppCompatActivity {
     Button btnSearch;
     ArrayList<Article> articles;
     ArticleArrayAdapter adapter;
-
+    Filter filter;
+    private final int REQUEST_CODE = 20;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,6 +84,8 @@ public class SearchActivity extends AppCompatActivity {
             }
         });
 
+        filter = new Filter();
+
     }
 
     public void customLoadMoreDataFromApi(int offset) {
@@ -103,14 +107,26 @@ public class SearchActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.miFilter) {
+            openFilters();
             return true;
         }
 
         return super.onOptionsItemSelected(item);
     }
 
+    public void openFilters() {
+        Intent i = new Intent(getApplicationContext(), FilterActivity.class);
+
+        i.putExtra("filter", Parcels.wrap(filter));
+        startActivityForResult(i, REQUEST_CODE);
+    }
+
     public void onNewArticleSearch(View view) {
+        onNewArticleSearch();
+    }
+
+    public void onNewArticleSearch() {
         adapter.clear();
         onArticleSearch(0);
     }
@@ -127,6 +143,8 @@ public class SearchActivity extends AppCompatActivity {
             params.put("api-key", "49e4ef58db7f4b28a614996ed6e0e513");
             params.put("page", page);
             params.put("q", query);
+            params.put("sort", filter.sort);
+            Log.e("params", params.toString());
             client.get(url, params, new JsonHttpResponseHandler() {
                 @Override
                 public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
@@ -146,6 +164,14 @@ public class SearchActivity extends AppCompatActivity {
             });
         } else {
             Log.e("error", "no internet!");
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (resultCode == RESULT_OK && requestCode == REQUEST_CODE) {
+            filter = (Filter) Parcels.unwrap(data.getParcelableExtra("filter"));
+            onNewArticleSearch();
         }
     }
 

@@ -3,8 +3,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".activities.SearchActivity">
     <item
-        android:id="@+id/action_settings"
-        android:orderInCategory="100"
-        android:title="@string/action_settings"
-        app:showAsAction="never" />
+        android:id="@+id/miFilter"
+        android:icon="@drawable/ic_filter"
+        app:showAsAction="ifRoom|withText"
+        android:title="@string/filters_menu_item"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+    </item>
+    <!--<item-->
+        <!--android:id="@+id/action_settings"-->
+        <!--android:orderInCategory="100"-->
+        <!--android:title="@string/action_settings"-->
+        <!--app:showAsAction="never" />-->
 </menu>
