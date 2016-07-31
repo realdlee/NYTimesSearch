@@ -16,9 +16,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/spinnerDateSort"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="185dp" />
+        android:layout_below="@+id/tvSpinner"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -26,9 +26,7 @@
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="@string/sort_spinner_text"
         android:id="@+id/tvSpinner"
-        android:layout_alignBottom="@+id/spinnerDateSort"
-        android:layout_marginBottom="68dp"
-        android:layout_alignTop="@+id/spinnerDateSort"
+        android:layout_below="@+id/tvBeginDate"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 
@@ -38,21 +36,9 @@
         android:text="@string/btn_filter_text"
         android:id="@+id/btnSaveFilter"
         android:onClick="onSave"
-        android:layout_below="@+id/cbBusiness"
+        android:layout_centerVertical="true"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="57dp" />
-
-    <Button
-        style="?android:attr/buttonStyleSmall"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/initiate_begin_date_picker"
-        android:id="@+id/button"
-        android:onClick="showDatePickerDialog"
-        android:layout_above="@+id/tvSpinner"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="46dp" />
+        android:layout_alignParentStart="true" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -60,7 +46,7 @@
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="@string/news_desk_checkboxes_label"
         android:id="@+id/textView"
-        android:layout_below="@+id/tvSpinner"
+        android:layout_below="@+id/spinnerDateSort"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 
@@ -69,11 +55,11 @@
         android:layout_height="wrap_content"
         android:text="@string/newsdesk_sports_checkbox"
         android:id="@+id/cbSports"
+        android:onClick="checkBoxClicked"
+        android:checked="false"
         android:layout_below="@+id/textView"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:onClick="checkBoxClicked"
-        android:checked="false" />
+        android:layout_alignParentStart="true" />
 
     <CheckBox
         android:layout_width="wrap_content"
@@ -96,5 +82,24 @@
         android:layout_alignParentStart="true"
         android:onClick="checkBoxClicked"
         android:checked="false" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="@string/filterBeginDateLabel"
+        android:id="@+id/tvBeginDateLabel"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/tvBeginDate"
+        android:onClick="showDatePickerDialog"
+        android:layout_alignBottom="@+id/tvBeginDateLabel"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
 
 </RelativeLayout>

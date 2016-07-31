@@ -11,9 +11,10 @@
         <item>oldest</item>
         <item>newest</item>
     </string-array>
-    <string name="initiate_begin_date_picker">Select Start Date</string>
+    <string name="initiate_begin_date_picker">Start Date</string>
     <string name="news_desk_checkboxes_label">Section</string>
     <string name="newsdesk_sports_checkbox">Sports</string>
     <string name="newsdesk_health_checkbox">Health</string>
     <string name="newsdesk_business_checkbox">Business</string>
+    <string name="filterBeginDateLabel">Start Date</string>
 </resources>

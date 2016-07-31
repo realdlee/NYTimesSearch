@@ -5,18 +5,21 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import com.lee.nytimessearch.Filter;
 import com.lee.nytimessearch.R;
 
 import org.parceler.Parcels;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 public class FilterActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener, DatePickerDialog.OnDateSetListener {
@@ -42,6 +45,19 @@ public class FilterActivity extends AppCompatActivity implements AdapterView.OnI
         int position = adapter.getPosition(filter.sort);
         sortSpinner.setSelection(position);
         sortSpinner.setOnItemSelectedListener(this);
+
+        setBeginDateTextView();
+    }
+
+    public void setBeginDateTextView() {
+        TextView tvBeginDate = (TextView) findViewById(R.id.tvBeginDate);
+        if(filter.getBeginDate() != null) {
+            SimpleDateFormat format = new SimpleDateFormat("MMMM d, yyyy");
+            Log.e("date", format.format(filter.beginDate.getTime()));
+            tvBeginDate.setText(format.format(filter.beginDate.getTime()));
+        } else {
+            tvBeginDate.setText("Click to select");
+        }
     }
 
     public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
@@ -118,5 +134,6 @@ public class FilterActivity extends AppCompatActivity implements AdapterView.OnI
         c.set(Calendar.MONTH, monthOfYear);
         c.set(Calendar.DAY_OF_MONTH, dayOfMonth);
         filter.beginDate = c;
+        setBeginDateTextView();
     }
 }
