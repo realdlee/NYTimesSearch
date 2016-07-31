@@ -182,7 +182,6 @@ public class SearchActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (resultCode == RESULT_OK && requestCode == REQUEST_CODE) {
             filter = (Filter) Parcels.unwrap(data.getParcelableExtra("filter"));
-            Log.e("test", filter.newsDesk.toString());
             onNewArticleSearch();
         }
     }

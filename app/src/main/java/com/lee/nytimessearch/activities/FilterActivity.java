@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -40,6 +41,8 @@ public class FilterActivity extends AppCompatActivity implements AdapterView.OnI
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
 
         TextView toolbarTitle = (TextView) findViewById(R.id.toolbar_title);
         toolbarTitle.setText("Filters");
@@ -55,6 +58,18 @@ public class FilterActivity extends AppCompatActivity implements AdapterView.OnI
         sortSpinner.setOnItemSelectedListener(this);
 
         setBeginDateTextView();
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            // This is the up button
+            case android.R.id.home:
+                saveAndReturnToParent();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 
     public void setBeginDateTextView() {
@@ -114,6 +129,10 @@ public class FilterActivity extends AppCompatActivity implements AdapterView.OnI
     }
 
     public void onSave(View view) {
+        saveAndReturnToParent();
+    }
+
+    public void saveAndReturnToParent() {
         Intent i = new Intent();
         i.putExtra("code", 200);
         i.putExtra("filter", Parcels.wrap(filter));
