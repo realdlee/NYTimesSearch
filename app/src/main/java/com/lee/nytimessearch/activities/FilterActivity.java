@@ -30,11 +30,19 @@ public class FilterActivity extends AppCompatActivity implements AdapterView.OnI
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_filter);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
         filter = (Filter) Parcels.unwrap(getIntent().getParcelableExtra("filter"));
+        setupToolbar();
         setupSpinner();
         setupCheckBoxes();
+    }
+
+    public void setupToolbar() {
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
+
+        TextView toolbarTitle = (TextView) findViewById(R.id.toolbar_title);
+        toolbarTitle.setText("Filters");
     }
 
     public void setupSpinner() {
