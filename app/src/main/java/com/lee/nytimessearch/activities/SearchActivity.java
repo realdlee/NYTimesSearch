@@ -59,7 +59,6 @@ public class SearchActivity extends AppCompatActivity {
 
     public void setupViews() {
         gvResults = (GridView) findViewById(R.id.gvResults);
-        btnSearch = (Button) findViewById(R.id.btnSearch);
         articles = new ArrayList<>();
         adapter = new ArticleArrayAdapter(this, articles);
         gvResults.setAdapter(adapter);
@@ -154,7 +153,7 @@ public class SearchActivity extends AppCompatActivity {
     }
 
     public void articleSearch(int page) {
-        if (isNetworkAvailable() && page < 4) {
+        if (isNetworkAvailable()) {
             AsyncHttpClient client = new AsyncHttpClient();
             String url = "https://api.nytimes.com/svc/search/v2/articlesearch.json";
 
@@ -166,7 +165,10 @@ public class SearchActivity extends AppCompatActivity {
             if (!filter.newsDesk.isEmpty()) {
                 String newDeskParams = "";
                 for (int i = 0; i < filter.newsDesk.size(); i++) {
-                    newDeskParams += "\"" + filter.newsDesk.get(i).toString() + "\"" + ",";
+                    newDeskParams += "\"" + filter.newsDesk.get(i).toString() + "\"";
+                    if(i+1 < filter.newsDesk.size()) {
+                        newDeskParams = newDeskParams + ",";
+                    }
                 }
                 params.put("fq", "news_desk:(" + newDeskParams + ")");
             }
@@ -198,7 +200,7 @@ public class SearchActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (resultCode == RESULT_OK && requestCode == REQUEST_CODE) {
             filter = (Filter) Parcels.unwrap(data.getParcelableExtra("filter"));
-            onNewArticleSearch();
+//            onNewArticleSearch();
         }
     }
 
