@@ -15,6 +15,7 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.GridView;
+import android.widget.Toast;
 
 import com.lee.nytimessearch.Article;
 import com.lee.nytimessearch.ArticleArrayAdapter;
@@ -91,7 +92,7 @@ public class SearchActivity extends AppCompatActivity {
     }
 
     public void customLoadMoreDataFromApi(int offset) {
-        onArticleSearch(offset);
+        articleSearch(offset);
     }
 
     @Override
@@ -128,14 +129,18 @@ public class SearchActivity extends AppCompatActivity {
     }
 
     public void onNewArticleSearch() {
-        adapter.clear();
-        onArticleSearch(1);
+        String query = etQuery.getText().toString();
+        if (query.length() > 0) {
+            adapter.clear();
+            articleSearch(1);
+        } else {
+            Toast.makeText(this, "Please enter a search query", Toast.LENGTH_LONG).show();
+        }
     }
 
-    public void onArticleSearch(int page) {
-        if(isNetworkAvailable() && page < 4) {
+    public void articleSearch(int page) {
+        if (isNetworkAvailable() && page < 4) {
             String query = etQuery.getText().toString();
-
             AsyncHttpClient client = new AsyncHttpClient();
             String url = "https://api.nytimes.com/svc/search/v2/articlesearch.json";
 
@@ -144,14 +149,14 @@ public class SearchActivity extends AppCompatActivity {
             params.put("page", page);
             params.put("q", query);
             params.put("sort", filter.sort);
-            if(!filter.newsDesk.isEmpty()) {
+            if (!filter.newsDesk.isEmpty()) {
                 String newDeskParams = "";
-                for(int i=0;i < filter.newsDesk.size(); i++) {
-                    newDeskParams += "\""+ filter.newsDesk.get(i).toString() +"\"" + ",";
+                for (int i = 0; i < filter.newsDesk.size(); i++) {
+                    newDeskParams += "\"" + filter.newsDesk.get(i).toString() + "\"" + ",";
                 }
                 params.put("fq", "news_desk:(" + newDeskParams + ")");
             }
-            if(filter.beginDate != null) {
+            if (filter.beginDate != null) {
                 params.put("begin_date", format.format(filter.beginDate.getTime()));
             }
             Log.e("params", params.toString());
@@ -168,7 +173,6 @@ public class SearchActivity extends AppCompatActivity {
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
-
                 }
             });
         } else {
