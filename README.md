@@ -29,7 +29,7 @@ Time spent: **6** hours spent in total
 - [ ] Optional: Use GSON library to streamline parsing of JSON data
 
 ##Walkthrough of all user stories:
-<img src='https://github.com/realdlee/NYTimesSearch/blob/master/nytimesv1b.gif'
+<img src='https://github.com/realdlee/NYTimesSearch/blob/master/nytimesv1c.gif'
 title='Video Walkthrough' width='' alt='Video Walkthrough' />
 
 GIF created with [LiceCap](http://www.cockos.com/licecap/).
