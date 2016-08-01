@@ -17,13 +17,13 @@ Time spent: **6** hours spent in total
 - [x] Required: User can scroll down infinitely to load more articles
 - [x] Optional: Use Parcelable instead of Serializable with Parceler library
 - [x] Optional: Replace Picasso with Glide for more efficient image rendering
+- [x] Optional: Use ActionBarSearchView as the query field instead of an
+  EditText
 
 ##Future User stories:
 - [ ] Optional: Robust error handling
 - [ ] Optional: Use ButterKnife annotation library to reduce view boilerplate
 - [ ] Optional: Improve UI
-- [ ] Optional: Use ActionBarSearchView as the query field instead of an
-  EditText
 - [ ] Optional: User can share a link to a friend or email it to themselves
 - [ ] Optional: Use RecyclerView with the StaggeredGridLayoutManager
 - [ ] Optional: Use GSON library to streamline parsing of JSON data
